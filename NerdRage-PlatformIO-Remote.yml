@@ -1,0 +1,11 @@
+---
+- hosts: nerdrage
+  tasks:
+  - name: Docker container for PlatformIO Remote
+    docker_container:
+        name: nerdrage-platformio-remote
+        image: matthijsbos/nerdrage-platformio-remote:latest
+        state: started
+        devices:
+          - "/dev/ttyUSB0:/dev/ttyUSB0"
+        command: "sleep 1d"
