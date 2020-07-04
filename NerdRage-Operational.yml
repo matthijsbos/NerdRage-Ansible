@@ -1,0 +1,24 @@
+---
+- hosts: nerdrage
+  tasks:
+  - name: Docker container for PlatformIO Remote
+    docker_container:
+        name: nerdrage-platformio-remote
+        image: matthijsbos/nerdrage-platformio-remote:latest
+        state: absent
+        devices:
+          - "/dev/ttyUSB0:/dev/ttyUSB0"
+        command: "sleep 1d"
+  - name: Docker container for PlatformIO WebApp
+    docker_container:
+        name: nerdrage-webapp
+        image: matthijsbos/nerdrage-webapp:latest
+        state: started
+        restart: yes
+        restart_policy: unless-stopped
+        devices:
+          - "/dev/ttyUSB0:/dev/ttyUSB0"
+        published_ports:
+          - "80:8080"
+        pull: yes
+        recreate: yes
