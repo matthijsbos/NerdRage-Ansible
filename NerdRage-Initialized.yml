@@ -2,6 +2,10 @@
 - hosts: nerdrage
   become: yes
   tasks:
+  - name: Ensure hostname is set to nerdrage
+    hostname:
+      name: nerdrage
+
   - name: Install prerequisites for Docker repository
     apt:
       name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common']
