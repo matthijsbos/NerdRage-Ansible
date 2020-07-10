@@ -6,11 +6,12 @@
         {
             "label": "NerdRageOperationalMode",
             "type": "shell",
-            "command": "ansible-playbook -i hosts.yml --ask-pass NerdRage-Operational.yml ",
+            "command": "ansible-playbook -i hosts.yml NerdRage-Operational.yml ",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
-              }
+            },
+            "problemMatcher": []
         }
     ]
 }
