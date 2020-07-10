@@ -9,7 +9,7 @@
           state: directory
           mode: 0775
           owner: ubuntu
-          group: ubuntu
+          group: docker
     
     - name: Create container network
       docker_network:
@@ -37,18 +37,18 @@
     - name: Ensure directory for Crossbar config files is created on remote Docker host
       become: yes
       file:
-          path: "/NerdRage/crossbar"
+          path: "/NerdRage/.crossbar"
           state: directory
           mode: 0775
           owner: ubuntu
-          group: ubuntu
+          group: docker
 
     - name: Ensure crossbar config file is copied to remote docker host file system
       copy:
           src: "./crossbar/config.json"
-          dest: "/NerdRage/config.json"
+          dest: "/NerdRage/.crossbar/config.json"
           owner: ubuntu
-          group: ubuntu
+          group: docker
           mode: 0775
 
     - name: Ensure Docker container for CrossbarIO is instantiated
@@ -61,8 +61,10 @@
           restart: yes
           restart_policy: unless-stopped
           recreate: yes
+          user:
+            "1000:1000"
           volumes:
-            - "~/crossbar:/node"
+            - "/NerdRage:/node"
           networks:
             - name: nerdrage 
               aliases:
